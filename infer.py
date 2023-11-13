@@ -78,7 +78,7 @@ def get_text(text, language_str, hps, device):
     norm_text, phone, tone, word2ph = clean_text(text, language_str)
     phone, tone, language = cleaned_text_to_sequence(phone, tone, language_str)
 
-    if hps.data.add_blank:
+    if hps.data.add_blank:  # add space between each phoneme
         phone = commons.intersperse(phone, 0)
         tone = commons.intersperse(tone, 0)
         language = commons.intersperse(language, 0)

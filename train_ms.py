@@ -523,7 +523,7 @@ def train_and_evaluate(
                 )
 
             if global_step % hps.train.eval_interval == 0:
-                evaluate(hps, net_g, eval_loader, writer_eval)
+                # evaluate(hps, net_g, eval_loader, writer_eval)
                 utils.save_checkpoint(
                     net_g,
                     optim_g,

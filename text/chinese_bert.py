@@ -24,16 +24,16 @@ def get_bert_feature(text, word2ph, device=config.bert_gen_config.device):
     if device not in models.keys():
         models[device] = AutoModelForMaskedLM.from_pretrained(LOCAL_PATH).to(device)
     with torch.no_grad():
-        inputs = tokenizer(text, return_tensors="pt")
+        inputs = tokenizer(text, return_tensors="pt")  # get token index
         for i in inputs:
             inputs[i] = inputs[i].to(device)
-        res = models[device](**inputs, output_hidden_states=True)
-        res = torch.cat(res["hidden_states"][-3:-2], -1)[0].cpu()
+        res = models[device](**inputs, output_hidden_states=True)  # each hidden state (1, n_word, 1024)
+        res = torch.cat(res["hidden_states"][-3:-2], -1)[0].cpu()  # why get the last third hidden state?
 
     assert len(word2ph) == len(text) + 2
     word2phone = word2ph
     phone_level_feature = []
-    for i in range(len(word2phone)):
+    for i in range(len(word2phone)):  # repeat features by lengths of phonemes
         repeat_feature = res[i].repeat(word2phone[i], 1)
         phone_level_feature.append(repeat_feature)
 

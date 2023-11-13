@@ -6,7 +6,7 @@ from transformers import AutoModelForMaskedLM, AutoTokenizer
 from config import config
 from text.japanese import text2sep_kata
 
-LOCAL_PATH = "./bert/deberta-v2-large-japanese"
+LOCAL_PATH = "./bert/bert-base-japanese-v3"
 
 tokenizer = AutoTokenizer.from_pretrained(LOCAL_PATH)
 
